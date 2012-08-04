@@ -14,6 +14,7 @@ module Rabl
     # cache = Rabl::CacheEngine.new; cache.fetch("some_key") { "fallback data" }
     #
     def fetch(key, cache_options, &block)
+      cache_options ||= {} # Some backwards compatibility issue passes this key as nil
       if defined?(Rails)
         Rails.cache.fetch(key, cache_options, &block)
       else
